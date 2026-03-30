@@ -5,7 +5,7 @@
 import fs from 'fs';
 import http from 'http';
 
-const serverFile = './dist/server/server.js';
+const serverFile = './dist/server/index.js';
 
 async function start() {
   if (!fs.existsSync(serverFile)) {
