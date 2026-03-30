@@ -287,7 +287,7 @@ async function seed() {
     );
   }
   const [moduleRows] = await db.query("SELECT id, slug FROM modules") as any;
-  const moduleMap = new Map(moduleRows.map((r: any) => [r.slug, r.id]));
+  const moduleMap = new Map<string, number>(moduleRows.map((r: any) => [r.slug, r.id]));
   console.log(`   ✓ ${MODULES.length} módulos\n`);
 
   // 2. Caracteres
@@ -301,7 +301,9 @@ async function seed() {
     );
   }
   const [charRows] = await db.query("SELECT id, slug, category FROM characters") as any;
-  const charMap = new Map(charRows.map((r: any) => [r.slug, { id: r.id, category: r.category }]));
+  const charMap = new Map<string, { id: number; category: string }>(
+    charRows.map((r: any) => [r.slug, { id: r.id, category: r.category }])
+  );
   console.log(`   ✓ ${CHARACTERS.length} caracteres\n`);
 
   // Mapa categoria → módulo
