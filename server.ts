@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Em produção serve o build do Vite
 if (!isDev) {
-  app.use(express.static(path.join(__dirname, "../dist/client")));
+  app.use(express.static(path.join(__dirname, "../client")));
 }
 
 // ── Helpers de template ───────────────────────────────────────
@@ -339,7 +339,7 @@ app.get("*", (_req, res) => {
   if (isDev) {
     res.redirect("http://localhost:5173" + _req.path);
   } else {
-    res.sendFile(path.join(__dirname, "../dist/client/index.html"));
+    res.sendFile(path.join(__dirname, "../client/index.html"));
   }
 });
 

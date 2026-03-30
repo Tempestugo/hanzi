@@ -34,8 +34,7 @@ pool.getConnection()
     conn.release();
   })
   .catch((err) => {
-    console.error("❌ Falha na conexão MySQL:", err.message);
-    process.exit(1);
+    console.error("❌ Falha na conexão MySQL (Verifique o arquivo .env na Hostinger):", err.message);
   });
 
 export default pool;
