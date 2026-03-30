@@ -6,9 +6,9 @@
     "dev:server": "tsx watch server/index.ts",
     "dev:client": "vite",
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
-    "build:client": "vite build",
-    "build:server": "tsc",
-    "build": "npm run build:client && npm run build:server",
+    "build:client": "vite build || npx vite build",
+    "build:server": "tsc || npx tsc",
+    "build": "npm install --include=dev && npm run build:client && npm run build:server",
     "start": "NODE_ENV=production node server.js",
     "seed": "tsx server/seed.ts"
   },

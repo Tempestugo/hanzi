@@ -35,7 +35,7 @@ if (!isDev) {
 // ── Helpers de template ───────────────────────────────────────
 function htmlShell(title: string, metaDesc: string, bodyContent: string): string {
   const scriptTag = isDev
-    ? `<script type="module" src="http://localhost:5173/@vite/client"></script>\n  <script type="module" src="http://localhost:5173/src/main.tsx"></script>`
+    ? `<script type="module" src="http://localhost:5173/@vite/client"></script>\n  <script type="module" src="http://localhost:5173/main.tsx"></script>`
     : `<script type="module" src="/assets/index.js"></script>`;
   return `<!DOCTYPE html>
 <html lang="pt-BR">
