@@ -9,8 +9,9 @@
     "build:client": "vite build",
     "build:server": "tsc",
     "build": "vite build && tsc",
+    "postinstall": "npm run build",
     "start": "NODE_ENV=production node server.js",
-    "seed": "tsx server/seed.ts"
+    "seed": "tsx seed.ts"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
