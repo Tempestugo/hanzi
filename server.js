@@ -7,23 +7,32 @@ import http from 'http';
 
 const serverFile = './dist/server/index.js';
 
-// Se a pasta compilada não existir, cria um "mini-servidor" de resgate para não dar 503
-if (!fs.existsSync(serverFile)) {
+async function start() {
+  if (!fs.existsSync(serverFile)) {
+    serveError("Aplica&ccedil;&atilde;o n&atilde;o compilada", "A pasta dist/server n&atilde;o foi encontrada. O build falhou.");
+    return;
+  }
+
+  try {
+    // Tenta ligar o servidor real com o Express
+    await import(serverFile);
+  } catch (err) {
+    // Se o código crashar por falta de dependências, pega o erro e joga na tela
+    serveError("Erro interno no Node.js", err.stack || err.message);
+  }
+}
+
+function serveError(title, message) {
   const server = http.createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    res.writeHead(500, { 'Content-Type': 'text/html; charset=utf-8' });
     res.end(`
-      <div style="font-family: system-ui, sans-serif; padding: 40px; max-width: 600px; margin: 0 auto; color: #333;">
-        <h2 style="color: #ef4444;">Aplica&ccedil;&atilde;o n&atilde;o compilada</h2>
-        <p>O servidor Node.js iniciou com sucesso, mas os arquivos da pasta <strong>dist/</strong> n&atilde;o existem.</p>
-        <p>V&aacute; no hPanel da Hostinger, na se&ccedil;&atilde;o do Web App Node.js, e preencha o campo <strong>Comando de Build (Build command)</strong> com:</p>
-        <code style="background: #f1f5f9; padding: 12px; border-radius: 6px; display: block; margin: 16px 0; font-size: 16px; font-weight: bold; text-align: center;">npm run build</code>
-        <p>Depois, clique em Salvar e Reinicie o aplicativo.</p>
+      <div style="font-family: system-ui, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; color: #333;">
+        <h2 style="color: #ef4444;">${title}</h2>
+        <pre style="background: #f1f5f9; padding: 16px; border-radius: 6px; overflow-x: auto; font-size: 14px;">${message}</pre>
       </div>
     `);
   });
-  
   server.listen(process.env.PORT || 3000);
-} else {
-  // Se o build deu certo, executa o servidor real
-  await import(serverFile);
 }
+
+start();
