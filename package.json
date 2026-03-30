@@ -9,7 +9,7 @@
     "build:client": "vite build",
     "build:server": "tsc",
     "build": "npm run build:client && npm run build:server",
-    "start": "NODE_ENV=production node dist/server/index.js",
+    "start": "NODE_ENV=production node server.js",
     "seed": "tsx server/seed.ts"
   },
   "dependencies": {
