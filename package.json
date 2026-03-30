@@ -8,8 +8,7 @@
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "build:client": "vite build",
     "build:server": "tsc",
-    "build": "npm run build:client && npm run build:server",
-    "postinstall": "npm run build",
+    "build": "vite build && tsc",
     "start": "NODE_ENV=production node server.js",
     "seed": "tsx server/seed.ts"
   },
